@@ -6,15 +6,15 @@ function App() {
 
   const [data,setData] = useState({})
   const [location, setLocation] = useState('')
-  const [unit, setUnit] = useState('metric');
-  const toggleUnit = () => {
-    setUnit(unit => unit === 'imperial' ? 'imperial' : 'metric');
-  }
+  const [unit, setUnit] = useState('imperial');
+  // const toggleUnit = () => {
+  //   setUnit(unit => unit === 'imperial' ? 'imperial' : 'metric');
+  // }
   
   /*https://api.openweathermap.org/data/2.5/weather?q=houston&appid=cd10c53bef5d5bfbf9d7574cfb1cb290*/
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${unit}&appid=cd10c53bef5d5bfbf9d7574cfb1cb290`
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=cd10c53bef5d5bfbf9d7574cfb1cb290`
   
-  
+  //console.log("url", url)
   const searchLocation = (event) => {
     if(event.key==='Enter'){
       axios.get(url).then((response) => {
@@ -36,28 +36,28 @@ function App() {
         placeholder='Enter Location'
         type="text"/>
       </div>
-      <button 
+      {/* <button 
       id="unit"
-      onclick = {toggleUnit}>
-        Switch to {unit === 'imperial' ? 'Celsius' : 'Fahrenheit'}
-      </button>
+      onClick = {toggleUnit}>
+      F / C
+      </button> */}
       <div className="container">
         <div className="top">
           <div className="location">
-            <p>{data.name}</p>
+            <p>{data.name}, {data.sys.country}</p> 
           </div>
           <div className="temp">
-            {data.main ? <h1>{data.main.temp.toFixed()}°F</h1> : null}
+            {data.main ? <h1>{data.main.temp.toFixed()}°{unit === 'imperial' ? 'F' : 'C'}</h1> : null}
           </div>
           <div className="description">
-            {data.weather ? <p>{data.weather[0].main}</p> : null}
+            {/* {data.weather ? <p>{data.weather[0].main}</p> : null} */}
           </div>
         
       </div>
           {data.name !== undefined &&
             <div className="bottom">
             <div className="feels">
-              {data.main ? <p>{data.main.feels_like.toFixed()}°F</p> : null}
+              {data.main ? <p>{data.main.feels_like.toFixed()}°{unit === 'imperial' ? 'F' : 'C'}</p> : null}
               <p>Feels Like</p>
             </div>
             <div className="humidity">
